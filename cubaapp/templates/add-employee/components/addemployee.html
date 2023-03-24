@@ -1,0 +1,220 @@
+{% load static %}
+{% load sass_tags %}
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="card-body">
+        <form id="my-form" method="POST" action="{% url 'submit_form' %}">
+          {% csrf_token %}
+        <div class="form theme-form">
+          <div class="row">
+            <div class="col">
+              <div class="mb-3">
+                <label>Name</label>
+                <input class="form-control" type="text" placeholder="Abc" id="Name" name="Name" required>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="mb-3">
+                <label>Email</label>
+                <input class="form-control" type="text" placeholder="abc@abc.com" id="Email" name="Email" required>
+              </div>
+            </div>
+          </div>
+             
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label>Contact Number</label>
+                <input class="form-control" type="Contact" placeholder="971501234567" id="Contact" name="Contact" required>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label>Unique Id of existing system</label>
+                <input class="form-control" type="text" placeholder="1"  id="UniqueId" name="UniqueId" >
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label>Week-end Day's</label>
+                <div class="m-t-15 m-checkbox-inline">
+                  <div class="form-check form-check-inline checkbox checkbox-dark mb-0">
+                    <input class="form-check-input" id="monday" type="checkbox"  name="days" value="monday" >
+                    <label class="form-check-label" for="monday">Monday</label>
+                  </div>
+                  <div class="form-check form-check-inline checkbox checkbox-dark mb-0">
+                    <input class="form-check-input" id="tuesday" type="checkbox" name="days"  value="tuesday">
+                    <label class="form-check-label" for="tuesday">Tuesday</label>
+                  </div>
+                  <div class="form-check form-check-inline checkbox checkbox-dark mb-0">
+                    <input class="form-check-input" id="wednesday" type="checkbox" name="days"  value="wednesday">
+                    <label class="form-check-label" for="wednesday">Wednesday</label>
+                  </div>
+                  <div class="form-check form-check-inline checkbox checkbox-dark mb-0">
+                    <input class="form-check-input" id="thursday" type="checkbox" name="days"  value="thursday">
+                    <label class="form-check-label" for="thursday">Thursday</label>
+                  </div>
+                  <div class="form-check form-check-inline checkbox checkbox-dark mb-0">
+                    <input class="form-check-input" id="friday" type="checkbox" name="days"  value="friday">
+                    <label class="form-check-label" for="friday">Friday</label>
+                  </div>
+                  <div class="form-check form-check-inline checkbox checkbox-dark mb-0">
+                    <input class="form-check-input" id="saturday" type="checkbox" name="days"  value="saturday">
+                    <label class="form-check-label" for="saturday">Saturday</label>
+                  </div>
+                  <div class="form-check form-check-inline checkbox checkbox-dark mb-0">
+                    <input class="form-check-input" id="sunday" type="checkbox" checked="" name="days" value="sunday" >
+                    <label class="form-check-label" for="sunday">Sunday</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label>Salary</label>
+                <input class="form-control" type="number" placeholder="1000"  id="salary" name="salary" required>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label>Salary Type</label>
+                <select class="form-select"  id="salaryType" name="salaryType" required>
+                  {% for s in salary_types %}
+                  <option value="{{ s.id }}">{{ s.name }}</option>
+                  {% endfor %}              
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label>Department</label>
+                <select class="form-select"  id="department" name="department" required>
+                  {% for s in departments %}
+                  <option value="{{ s.id }}">{{ s.name }}</option>
+                  {% endfor %}      
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-4 col-md-6">
+              <div class="mb-3">
+                <label>Designation</label>
+                <input class="form-control" type="text" placeholder="HR Manager" id="designation" name="designation" required>
+              </div>
+            </div>
+            <div class="col-xl-4 col-sm-6">
+              <div class="mb-3">
+                <label>Starting date</label>
+                <input class="datepicker-here form-control" type="text" data-language="en" id="startingDate" name="startingDate" required>
+              </div>
+            </div>
+            <div class="col-xl-4 col-lg-6 col-md-12 col-sm-6">
+              <div class="mb-3">
+                <label>Ending date</label>
+                <input class="datepicker-here form-control" type="text" data-language="en" id="endDate" name="endDate" required>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label>Is Overtime Included</label>
+                <select class="form-select"  id="isOvertime" name="isOvertime" required>
+                  <option>No</option>
+                  <option>Yes</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label>Is Location Bound</label>
+                <select class="form-select" id="isLocationBound" name="isLocationBound" required>
+                  <option>Yes</option>
+                  <option>No</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label>Location</label>
+                <select class="form-select" id="location" name="location" required>
+                  {% for s in locations %}
+                  <option value="{{ s.id }}">{{ s.name }}</option>
+                  {% endfor %}  
+                </select>
+              </div>
+            </div>
+          </div>
+          
+          
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label>Workday Start</label>
+                <input class="form-control digits" type="time" value="09:00:00" id="workdayStart" name="workdayStart" required>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label>Workday End</label>
+                <input class="form-control digits" type="time" value="18:00:00"  id="workdayEnd" name="workdayEnd" required>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="mb-3">
+                <label>Max Monthly Overtime</label>
+                <input class="form-control digits" type="number"  placeholder="60" id="maxMonthlyOvertime" name="maxMonthlyOvertime" required>
+              </div>
+            </div>
+          </div>
+          
+
+          <div class="row">
+            <div class="col">
+              <div class="mb-3">
+                <label>Enter some Details</label>
+                <textarea class="form-control" id="Description" name="Description" rows="3"></textarea>
+              </div>
+            </div>
+          </div>
+          {% comment %} <div class="row">
+            <div class="col">
+              <div class="mb-3">
+                <label>Upload project file</label>
+                <form class="dropzone" id="singleFileUpload" action="/upload.php"> {% csrf_token %}
+                  <div class="dz-message needsclick"><i class="icon-cloud-up"></i>
+                    <h6>Drop files here or click to upload.</h6><span class="note needsclick">(This is just a demo
+                      dropzone. Selected files are <strong>not</strong> actually uploaded.)</span>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div> {% endcomment %}
+          <div class="row">
+            <div class="col">
+              <div class="text-end">
+                <button type="submit" class="btn btn-success me-3">Add</button>
+                <button type="button" class="btn btn-danger" onclick="window.history.back();">Cancel</button>
+            </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
