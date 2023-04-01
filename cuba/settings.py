@@ -53,7 +53,10 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 CORS_ALLOWED_ORIGINS = [
-    "*",
+    "https://www.clockspotter.com",
+    "http://www.clockspotter.com",
+    "http://clockspotter.com",
+    "https://clockspotter.com",
 ]
 
 ROOT_URLCONF = 'cuba.urls'
