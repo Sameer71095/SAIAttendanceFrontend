@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-_56tytpc0wt(mx7r)hh2dznbrf+w0)n890dq579jegw5o^2*15
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['www.clockspotter.com','clockspotter.com']
+ALLOWED_HOSTS = ['www.clockspotter.com','clockspotter.com','*']
 
 
 # Application definition
@@ -52,12 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
 ]
-CORS_ALLOWED_ORIGINS = [
-    "https://www.clockspotter.com",
-    "http://www.clockspotter.com",
-    "http://clockspotter.com",
-    "https://clockspotter.com",
-]
+CORS_ALLOWED_ORIGINS = ['https://*', 'http://*']
 
 ROOT_URLCONF = 'cuba.urls'
 
