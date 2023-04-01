@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-_56tytpc0wt(mx7r)hh2dznbrf+w0)n890dq579jegw5o^2*15
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['www.clockspotter.com','clockspotter.com']
 
 
 # Application definition
