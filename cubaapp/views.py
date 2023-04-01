@@ -8,7 +8,8 @@ import json
 from django.core.cache import cache
 from django.views.decorators.csrf import csrf_exempt
 
-base_url='http://10.39.1.117:8020/api'
+#base_url='http://192.67.63.238:5000/api'
+base_url='http://127.0.0.1:5000/api'
 
 #@login_required
 def indexPage(request):
@@ -79,8 +80,11 @@ def login_view(request):
         }
         login_data_json = json.dumps(login_data)
         
+        # Add the JSON content-type header
+        headers = {'Content-Type': 'application/json'}
+        
         # Send the login request to the API and get the response
-        response = requests.post(base_url + '/employer/login', data=login_data_json)
+        response = requests.post(base_url + '/employer/login', data=login_data_json, headers=headers)
         
         # Deserialize the response from JSON to a Python object
         response_data = json.loads(response.content)
@@ -92,18 +96,21 @@ def login_view(request):
             # Deserialize the response JSON into an entity
             entity = json.loads(response.text)
             # Save the entity in the secure cache
-            cache.set('user_data', entity, timeout=300)
+            cache.set('user_data', entity, timeout=300000)
             
             # Log the user in to the Django app
           #  user = authenticate(request, email=email, password=password)
            # if user is not None:
              #   login(request, user)
             # Parse the data string as a JSON object
-            data = json.loads(response_data['data'])
-            request.session['user_id'] = data['EmployerID']
-            request.session['token'] = data['Token']
+            data = response_data['data']
+            request.session['user_id'] = data['employerId']
+            request.session['token'] = data['token']
+            request.session['name'] = data['name']
+            request.session['phoneNumber'] = data['phoneNumber']
+            request.session['address'] = data['address']
             request.session['is_authenticated'] = True
-            request.session.set_expiry(300) # set session timeout to 5 minutes
+            request.session.set_expiry(30000) # set session timeout to 5 minutes
             return redirect('index')
           #  else:
            #    context = {"breadcrumb": {"parent": "Dashboard", "child": "Login"}, "error": "Invalid form data"}
