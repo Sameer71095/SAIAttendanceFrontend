@@ -9,6 +9,7 @@ from django.core.cache import cache
 from django.views.decorators.csrf import csrf_exempt
 
 #base_url='http://192.67.63.238:5000/api'
+#base_url='http://127.0.0.1:5049/api'
 base_url='http://127.0.0.1:5000/api'
 
 #@login_required
@@ -31,16 +32,40 @@ def viewEmployee(request):
 @login_required
 def addEmployee(request):
    salary_types = []
-   response = requests.post(base_url + '/getsalarytype')
+   
+   token = request.session.get('token')
+   
+        
+        # Add the JSON content-type header
+   headers = {'Content-Type': 'application/json'}
+   headers = {'Authorization': 'bearer '+token}
+        
+   response = requests.post(base_url + '/salarytype/getsalarytype', headers=headers)
    if response.ok:
-      data = response.json().get('data')
-      salary_types = [{'id': s['SalaryTypeID'], 'name': s['SalaryTypeName']} for s in data]
+          
+        # Deserialize the response from JSON to a Python object
+        response_data = json.loads(response.content)
+        
+        # Verify the response data
+        if response_data['isSuccess']:
+            
+            data = response_data['data']
+     # data = response.json().get('data')
+            salary_types = [{'id': s['salaryTypeId'], 'name': s['salaryTypeName']} for s in data]
       
    departments = []
-   responses = requests.post(base_url + '/getdepartments')
+   responses = requests.post(base_url + '/department/GetDepartments', headers=headers)
    if responses.ok:
-      datas = responses.json().get('data')
-      departments = [{'id': s['DepartmentID'], 'name': s['DepartmentName']} for s in datas]
+      
+        # Deserialize the response from JSON to a Python object
+        response_datas = json.loads(responses.content)
+        
+        # Verify the response data
+        if response_datas['isSuccess']:
+            
+            datas = response_datas['data']
+      #datas = responses.json().get('data')
+            departments = [{'id': s['departmentId'], 'name': s['departmentName']} for s in datas]
       
    locations = []
    
@@ -49,10 +74,18 @@ def addEmployee(request):
             'EmployerID': 1
         }
    request_data_json = json.dumps(request_data)
-   responsess = requests.post(base_url + '/getlocations',data=request_data_json)
+   responsess = requests.post(base_url + '/location/getlocations', headers=headers)
    if responsess.ok:
-      datass = responsess.json().get('data')
-      locations = [{'id': s['LocationID'], 'name': s['NAME']} for s in datass]
+      
+        # Deserialize the response from JSON to a Python object
+        response_datass = json.loads(responsess.content)
+        
+        # Verify the response data
+        if response_datass['isSuccess']:
+            
+            datass = response_datass['data']
+    #  datass = responsess.json().get('data')
+            locations = [{'id': s['locationId'], 'name': s['name']} for s in datass]
       
    context = {
    'breadcrumb': {'parent': 'Employees', 'child': 'Employees'},
