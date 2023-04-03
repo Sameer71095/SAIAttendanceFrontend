@@ -53,7 +53,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
 ]
-CORS_ALLOWED_ORIGINS = ['https://*', 'http://*']
+CORS_ALLOWED_ORIGINS = ['https://*', 'http://*','https://www.clockspotter.com','http://www.clockspotter.com','https://clockspotter.com','http://clockspotter.com']
 
 ROOT_URLCONF = 'cuba.urls'
 
