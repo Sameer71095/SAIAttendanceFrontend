@@ -1,3 +1,4 @@
+import datetime
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
@@ -166,25 +167,25 @@ def submit_form(request):
       if request.method == 'POST':
         # Collect data from the submitted form
          data = {
-            'name': request.POST.get('Name'),
-            'email': request.POST.get('Email'),
-            'contact': request.POST.get('Contact'),
-            'unique_id': request.POST.get('UniqueId'),
+            'name': str(request.POST.get('Name')),
+            'email': str(request.POST.get('Email')),
+            'contact': str(request.POST.get('Contact')),
+            'unique_id': str(request.POST.get('UniqueId')),
             'weekend_days': request.POST.getlist('days'),
-            'salary': request.POST.get('salary'),
-            'salary_type': request.POST.get('salaryType'),
-            'department': request.POST.get('department'),
-            'designation': request.POST.get('designation'),
-            'starting_date': request.POST.get('startingDate'),
-            'end_date': request.POST.get('endDate'),
-            'is_overtime': request.POST.get('isOvertime'),
-            'is_location_bound': request.POST.get('isLocationBound'),
-            'location': request.POST.get('location'),
-            'workday_start': request.POST.get('workdayStart'),
-            'workday_end': request.POST.get('workdayEnd'),
-            'max_monthly_overtime': request.POST.get('maxMonthlyOvertime'),
-            'description': request.POST.get('Description')
-        }
+            'salary': float(request.POST.get('salary')),
+            'salary_type': int(request.POST.get('salaryType')),
+            'department': int(request.POST.get('department')),
+            'designation': str(request.POST.get('designation')),
+            'starting_date': str(request.POST.get('startingDate')),
+            'end_date': str(request.POST.get('endDate')),
+            'is_overtime': bool(request.POST.get('isOvertime')),
+            'is_location_bound': bool(request.POST.get('isLocationBound')),
+            'location': int(request.POST.get('location')),
+            'workday_start': datetime.datetime.strptime(request.POST.get('workdayStart'), '%H:%M:%S').time().strftime('%H:%M:%S'),
+            'workday_end': datetime.datetime.strptime(request.POST.get('workdayEnd'), '%H:%M:%S').time().strftime('%H:%M:%S'),
+            'max_monthly_overtime': int(request.POST.get('maxMonthlyOvertime')),
+            'description': str(request.POST.get('Description'))
+         }
           # Validate required fields
          required_fields = ['name', 'email', 'contact', 'unique_id', 'salary', 'salary_type', 'department', 'designation', 'starting_date', 'end_date', 'is_overtime', 'is_location_bound', 'location', 'workday_start', 'workday_end', 'max_monthly_overtime']
          missing_fields = [field for field in required_fields if not data[field]]
@@ -204,8 +205,10 @@ def submit_form(request):
    
         
         # Add the JSON content-type header
-         headers = {'Content-Type': 'application/json'}
-         headers = {'Authorization': 'bearer '+token}
+         headers = {
+    'Content-Type': 'application/json',
+     'Authorization': 'bearer ' + token
+     }
          response = requests.post(api_url, data=json_data, headers=headers)
 
          if response.status_code == 200:  # Change this to the appropriate status code for a successful response
