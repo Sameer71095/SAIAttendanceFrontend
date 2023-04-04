@@ -197,8 +197,15 @@ def submit_form(request):
          json_data = json.dumps(data)
 
         # Call the POST API
-         api_url = base_url + '/addemployee'
+         api_url = base_url + '/employee/addemployee'
+         
+   
+         token = request.session.get('token')
+   
+        
+        # Add the JSON content-type header
          headers = {'Content-Type': 'application/json'}
+         headers = {'Authorization': 'bearer '+token}
          response = requests.post(api_url, data=json_data, headers=headers)
 
          if response.status_code == 200:  # Change this to the appropriate status code for a successful response
