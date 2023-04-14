@@ -33,25 +33,28 @@
 
 <div class="tab-pane fade show active" id="top-home" role="tabpanel" aria-labelledby="top-home-tab">
   <div class="row">
-    {% for employee in employees %}
-    <div class="col-xl-4 col-md-6 col-sm-12 mb-4">
-      <div class="employee-box">
+    {% for employee in employees %}    
+    <div class="col-xxl-4 col-lg-6  col-md-6 col-sm-12 mb-4">
+      <div class="project-box"><span class="badge badge-primary">Doing</span>
         <h6>{{ employee.name }}</h6>
-        <div class="media">
-          <img class="img-20 me-1 rounded-circle" src="{% static 'assets/images/user/default.jpg'%}" alt="" data-original-title="" title="">
+        <div class="media"><img class="img-20 me-1 rounded-circle" src="../assets/images/user/3.jpg" alt=""
+            data-original-title="" title="">
           <div class="media-body">
             <p>{{ employee.designation }}</p>
           </div>
         </div>
-        <p>Email: {{ employee.email }}</p>
-        <p>Contact: {{ employee.contact }}</p>
+        {% comment %} <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p> {% endcomment %}
         <div class="row details">
-          <div class="col-6"><span>Department: </span></div>
-          <div class="col-6">{{ employee.department }}</div>
-          <div class="col-6"><span>Workday Start: </span></div>
-          <div class="col-6">{{ employee.workday_start_formatted }}</div>
-          <div class="col-6"><span>Workday End: </span></div>
-          <div class="col-6">{{ employee.workday_end_formatted }}</div>
+          <div class="col-6"><span>Email </span></div>
+          <div class="col-6 text-primary">{{ employee.email }} </div>
+          <div class="col-6"> <span>Contact</span></div>
+          <div class="col-6 text-primary">{{ employee.contact }}</div>
+          <div class="col-6"> <span>Department</span></div>
+          <div class="col-6 text-primary">{{ employee.department }}</div>
+          <div class="col-6"> <span>Workday Start</span></div>
+          <div class="col-6 text-primary">{{ employee.workday_start_formatted }}</div>
+          <div class="col-6"> <span>Workday End</span></div>
+          <div class="col-6 text-primary">{{ employee.workday_end_formatted }}</div>
         </div>
       </div>
     </div>
