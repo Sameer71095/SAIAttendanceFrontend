@@ -33,7 +33,7 @@ def viewEmployee(request):
     }
    
     employerId = request.session.get('employerId')
-    response = requests.post(base_url + '/Employee/GetAllEmployees?employerId=' + employerId, headers=headers)
+    response = requests.post(base_url + '/Employee/GetAllEmployees?employerId=' + str(employerId), headers=headers)
     response_data = json.loads(response.text)
 
     if response_data['isSuccess']:
