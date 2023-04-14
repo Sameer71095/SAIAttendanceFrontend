@@ -10,8 +10,8 @@ from django.core.cache import cache
 from django.views.decorators.csrf import csrf_exempt
 
 #base_url='http://192.67.63.238:5000/api'
-#base_url='http://127.0.0.1:5049/api'
-base_url='http://127.0.0.1:5000/api'
+#base_url='http://127.0.0.1:5049/api' #local
+base_url='http://127.0.0.1:5000/api'  #live
 
 #@login_required
 def indexPage(request):
