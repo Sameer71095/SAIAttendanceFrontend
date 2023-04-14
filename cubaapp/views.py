@@ -8,6 +8,7 @@ from . import models
 import json
 from django.core.cache import cache
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib import messages
 
 #base_url='http://192.67.63.238:5000/api'
 #base_url='http://127.0.0.1:5049/api' #local
@@ -118,43 +119,38 @@ def addEmployee(request):
 
 
 def login_view(request):
-       
-   if request.session.get('user_id'):
-      # user is already logged in, redirect to index
-      return redirect('index')
-   if request.method == 'POST':
+    if request.session.get('user_id'):
+        # user is already logged in, redirect to index
+        return redirect('index')
+    
+    if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
-        
+
         # Serialize the login data to JSON
         login_data = {
             'email': email,
             'password': password
         }
         login_data_json = json.dumps(login_data)
-        
+
         # Add the JSON content-type header
         headers = {'Content-Type': 'application/json'}
-        
+
         # Send the login request to the API and get the response
         response = requests.post(base_url + '/employer/login', data=login_data_json, headers=headers)
-        
+
         # Deserialize the response from JSON to a Python object
         response_data = json.loads(response.content)
-        
+
         # Verify the response data
         if response_data['isSuccess']:
-            # Save the response data to a secure local cache
-            # ...            
             # Deserialize the response JSON into an entity
             entity = json.loads(response.text)
-            # Save the entity in the secure cache
-            cache.set('user_data', entity, timeout=300000)
             
-            # Log the user in to the Django app
-          #  user = authenticate(request, email=email, password=password)
-           # if user is not None:
-             #   login(request, user)
+            # Save the entity in the secure cache with a timeout
+            cache.set('user_data', entity, timeout=300000)  # 5 minutes timeout
+
             # Parse the data string as a JSON object
             data = response_data['data']
             request.session['user_id'] = data['employerId']
@@ -164,16 +160,14 @@ def login_view(request):
             request.session['phoneNumber'] = data['phoneNumber']
             request.session['address'] = data['address']
             request.session['is_authenticated'] = True
-            request.session.set_expiry(30000) # set session timeout to 5 minutes
+            request.session.set_expiry(30000)  # set session timeout to 5 minutes
             return redirect('index')
-          #  else:
-           #    context = {"breadcrumb": {"parent": "Dashboard", "child": "Login"}, "error": "Invalid form data"}
-           #    return render(request, 'login/login.html', context)
-   else:
-               context = {"breadcrumb": {"parent": "Dashboard", "child": "Login"}}
-               return render(request, 'login/login.html', context)
-          
-     
+        else:
+            messages.error(request, 'Incorrect email or password. Please try again.')
+            return render(request, 'login/login.html', {"breadcrumb": {"parent": "Dashboard", "child": "Login"}})
+    else:
+        context = {"breadcrumb": {"parent": "Dashboard", "child": "Login"}}
+        return render(request, 'login/login.html', context)
  
 def logout_view(request):
          request.session.clear()
