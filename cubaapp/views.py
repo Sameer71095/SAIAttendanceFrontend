@@ -184,8 +184,8 @@ def submit_form(request):
             'is_overtime': bool(request.POST.get('isOvertime')),
             'is_location_bound': bool(request.POST.get('isLocationBound')),
             'location': int(request.POST.get('location')),
-            'workday_start': datetime.datetime.strptime(request.POST.get('workdayStart'), '%H:%M:%S').time().strftime('%H:%M:%S'),
-            'workday_end': datetime.datetime.strptime(request.POST.get('workdayEnd'), '%H:%M:%S').time().strftime('%H:%M:%S'),
+            'workday_start': datetime.datetime.strptime(request.POST.get('workdayStart'), '%H:%M').time().strftime('%H:%M:%S'),
+            'workday_end': datetime.datetime.strptime(request.POST.get('workdayEnd'), '%H:%M').time().strftime('%H:%M:%S'),
             'max_monthly_overtime': int(request.POST.get('maxMonthlyOvertime')),
             'description': str(request.POST.get('Description'))
          }
