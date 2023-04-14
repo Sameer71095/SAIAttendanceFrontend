@@ -70,9 +70,11 @@ def addEmployee(request):
       
    locations = []
    
+   
+   employerId = request.session.get('employerId')
         # Serialize the login data to JSON
    request_data = {
-            'EmployerID': 1
+            'EmployerID': employerId
         }
    request_data_json = json.dumps(request_data)
    responsess = requests.post(base_url + '/location/getlocations', headers=headers)
@@ -139,6 +141,7 @@ def login_view(request):
             # Parse the data string as a JSON object
             data = response_data['data']
             request.session['user_id'] = data['employerId']
+            request.session['employerId'] = data['employerId']
             request.session['token'] = data['token']
             request.session['name'] = data['name']
             request.session['phoneNumber'] = data['phoneNumber']
