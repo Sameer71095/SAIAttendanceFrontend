@@ -10,8 +10,8 @@ from django.core.cache import cache
 from django.views.decorators.csrf import csrf_exempt
 
 #base_url='http://192.67.63.238:5000/api'
-#base_url='http://127.0.0.1:5049/api' #local
-base_url='http://127.0.0.1:5000/api'  #live
+base_url='http://127.0.0.1:5049/api' #local
+#base_url='http://127.0.0.1:5000/api'  #live
 
 #@login_required
 def indexPage(request):
@@ -25,9 +25,25 @@ def index(request):
 
 
 @login_required
-def viewEmployee(request):
-   context={"breadcrumb":{"parent":"Employees","child":"Employees"}}
-   return render(request,'employee-list/employees.html',context)
+def viewEmployee(request):       
+    token = request.session.get('token')
+    headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'bearer ' + token
+    }
+   
+    employerId = request.session.get('employerId')
+    response = requests.post(base_url + '/Employee/GetAllEmployees?employerId=' + employerId, headers=headers)
+    response_data = json.loads(response.text)
+
+    if response_data['isSuccess']:
+        context = {
+            "breadcrumb": {"parent": "Employees", "child": "Employees"},
+            "employees": response_data['data']
+        }
+        return render(request, 'employee-list/employees.html', context)
+    else:
+        return JsonResponse({"error": "Failed to fetch employees"}, status=400)
 
 
 @login_required
@@ -38,9 +54,10 @@ def addEmployee(request):
    
         
         # Add the JSON content-type header
-   headers = {'Content-Type': 'application/json'}
-   headers = {'Authorization': 'bearer '+token}
-        
+   headers = {
+    'Content-Type': 'application/json',
+     'Authorization': 'bearer ' + token
+     }
    response = requests.post(base_url + '/salarytype/getsalarytype', headers=headers)
    if response.ok:
           
