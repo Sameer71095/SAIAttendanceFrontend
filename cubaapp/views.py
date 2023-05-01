@@ -248,13 +248,8 @@ def submit_form(request):
             'description': str(request.POST.get('Description'))
          }
          try:
-            input_time_format = '%I:%M %p' if 'AM' in request.POST.get('workdayStart') or 'PM' in request.POST.get('workdayStart') else '%H:%M'
-
-            workday_start = datetime.datetime.strptime(request.POST.get('workdayStart'), input_time_format).strftime('%H:%M:%S' if ':' in request.POST.get('workdayStart') else '%I:%M %p' if 'AM' in request.POST.get('workdayStart') or 'PM' in request.POST.get('workdayStart') else '%H:%M')
-            workday_end = datetime.datetime.strptime(request.POST.get('workdayEnd'), input_time_format).strftime('%H:%M:%S' if ':' in request.POST.get('workdayEnd') else '%I:%M %p' if 'AM' in request.POST.get('workdayEnd') or 'PM' in request.POST.get('workdayEnd') else '%H:%M')
-
-            data['workday_start'] = workday_start
-            data['workday_end'] = workday_end
+            data['workday_start'] = datetime.datetime.strptime(request.POST.get('workdayStart'), '%H:%M').time().strftime('%H:%M:%S')
+            data['workday_end'] = datetime.datetime.strptime(request.POST.get('workdayEnd'), '%H:%M').time().strftime('%H:%M:%S')
          except ValueError:
             messages.error(request, "Invalid time format. Please enter a valid time in the format 'HH:MM'.")
             return redirect(request.path)
@@ -297,9 +292,9 @@ def submit_form(request):
           
         # Handle GET requests by returning an error message or rendering a form template
         data = {
-            'name': (request.POST.get('Name')),
-            'email': (request.POST.get('Email')),
-            'contact': (request.POST.get('Contact')),
+            'name': (request.GET.get('Name')),
+            'email': (request.GET.get('Email')),
+            'contact': (request.GET.get('Contact')),
             'unique_id': (request.GET.get('UniqueId')),
             'weekend_days': request.GET.getlist('days'),
             'salary': (request.GET.get('salary')),
