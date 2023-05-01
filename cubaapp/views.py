@@ -292,23 +292,23 @@ def submit_form(request):
           
         # Handle GET requests by returning an error message or rendering a form template
         data = {
-            'name': str(request.GET.get('Name')),
-            'email': str(request.GET.get('Email')),
-            'contact': str(request.GET.get('Contact')),
-            'unique_id': str(request.GET.get('UniqueId')),
+            'name': (request.GET.get('Name')),
+            'email': (request.GET.get('Email')),
+            'contact': (request.GET.get('Contact')),
+            'unique_id': (request.GET.get('UniqueId')),
             'weekend_days': request.GET.getlist('days'),
-            'salary': str(request.GET.get('salary')),
-            'salary_type': int(request.GET.get('salaryType')),
-            'department': int(request.GET.get('department')),
-            'designation': str(request.GET.get('designation')),
-            'starting_date': str(request.GET.get('startingDate')),
-            'end_date': str(request.GET.get('endDate')),
-            'is_overtime': bool(request.GET.get('isOvertime')),
-            'is_location_bound': bool(request.GET.get('isLocationBound')),
-            'location': int(request.GET.get('location')),
-            'workday_start': str(request.GET.get('workdayStart')),
-            'workday_end': str(request.GET.get('workdayEnd')),
-            'max_monthly_overtime': str(request.GET.get('maxMonthlyOvertime')),
-            'description': str(request.GET.get('Description'))
+            'salary': (request.GET.get('salary')),
+            'salary_type': (request.GET.get('salaryType')),
+            'department': (request.GET.get('department')),
+            'designation': (request.GET.get('designation')),
+            'starting_date': (request.GET.get('startingDate')),
+            'end_date': (request.GET.get('endDate')),
+            'is_overtime': (request.GET.get('isOvertime')),
+            'is_location_bound': (request.GET.get('isLocationBound')),
+            'location': (request.GET.get('location')),
+            'workday_start': (request.GET.get('workdayStart')),
+            'workday_end': (request.GET.get('workdayEnd')),
+            'max_monthly_overtime': (request.GET.get('maxMonthlyOvertime')),
+            'description': (request.GET.get('Description'))
         }
         return render(request, 'employee/add_employee.html', {'data': data})         
