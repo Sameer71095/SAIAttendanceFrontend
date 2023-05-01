@@ -12,6 +12,7 @@ from django.contrib import messages
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from requests.exceptions import ConnectionError
+from django.http import HttpResponse
 
 
 #base_url='http://192.67.63.238:5000/api'
@@ -263,14 +264,18 @@ def submit_form(request):
         
         # Add the JSON content-type header
          headers = {
-    'Content-Type': 'application/json',
-     'Authorization': 'bearer ' + token
-     }
+      'Content-Type': 'application/json',
+      'Authorization': 'bearer ' + token
+      }
          response = requests.post(api_url, data=json_data, headers=headers)
 
          if response.status_code == 200:  # Change this to the appropriate status code for a successful response
             return redirect('index')
-         
+      else:
+        # Handle GET requests by returning an error message or rendering a form template
+        return HttpResponse("This endpoint only accepts POST requests.", status=405)
+        # Or render a form template:
+        # return render(request, 'path/to/your/form_template.html')
          
          
          
