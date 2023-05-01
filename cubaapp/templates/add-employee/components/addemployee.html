@@ -216,14 +216,17 @@
             </div>
           </div> {% endcomment %}
           <div class="row">
-            {% if messages %}
-<div class="messages">
-    {% for message in messages %}
-    <div{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</div>
-    {% endfor %}
+       
 </div>
 {% endif %}
             <div class="col">
+              {% if messages %}
+              <ul class="messages">
+                {% for message in messages %}
+                  <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
               <div class="text-end">
                 <button type="submit" class="btn btn-success me-3">Add</button>
                 <button type="button" class="btn btn-danger" onclick="window.history.back();">Cancel</button>

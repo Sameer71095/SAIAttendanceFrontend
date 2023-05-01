@@ -13,6 +13,7 @@ from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from requests.exceptions import ConnectionError
 from django.http import HttpResponse
+import re
 
 
 #base_url='http://192.67.63.238:5000/api'
@@ -264,7 +265,7 @@ def submit_form(request):
          is_valid, error_message = validate_data(data)
          if not is_valid:
             messages.error(request, error_message)
-            return redirect(request.path)
+            return redirect('employee/add_employee')
 
 
         # Convert data to JSON
