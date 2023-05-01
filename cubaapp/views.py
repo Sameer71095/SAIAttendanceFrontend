@@ -292,7 +292,7 @@ def submit_form(request):
        # return HttpResponse("This endpoint only accepts POST requests.", status=405)
         error_message='Please verify time and Max monthly overtime';
         messages.error(request, error_message)
-         return redirect('employee/add_employee')
+        return redirect('employee/add_employee')
         # Or render a form template:
         # return render(request, 'path/to/your/form_template.html')
          
