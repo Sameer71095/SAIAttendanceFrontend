@@ -9,6 +9,10 @@ import json
 from django.core.cache import cache
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
+from requests.exceptions import ConnectionError
+
 
 #base_url='http://192.67.63.238:5000/api'
 #base_url='http://127.0.0.1:5049/api' #local
@@ -137,8 +141,12 @@ def login_view(request):
         # Add the JSON content-type header
         headers = {'Content-Type': 'application/json'}
 
-        # Send the login request to the API and get the response
-        response = requests.post(base_url + '/employer/login', data=login_data_json, headers=headers)
+        try:
+            # Send the login request to the API and get the response
+            response = requests.post(base_url + '/employer/login', data=login_data_json, headers=headers)
+        except ConnectionError:
+            messages.error(request, 'Unable to connect to the server. Please try again later.')
+            return render(request, 'login/login.html', {"breadcrumb": {"parent": "Dashboard", "child": "Login"}})
 
         # Deserialize the response from JSON to a Python object
         response_data = json.loads(response.content)
@@ -168,14 +176,32 @@ def login_view(request):
     else:
         context = {"breadcrumb": {"parent": "Dashboard", "child": "Login"}}
         return render(request, 'login/login.html', context)
- 
+    
+    
+    
 def logout_view(request):
          request.session.clear()
          context = {"breadcrumb": {"parent": "Dashboard", "child": "Login"}}
          return redirect('indexlogin')
       
       
-      
+
+def validate_data(data):
+    try:
+        validate_email(data['email'])
+    except ValidationError:
+        return False, "Invalid email format."
+    
+    if not data['contact'].isdigit():
+        return False, "Contact number should only contain digits."
+    
+    if data['salary'] < 0:
+        return False, "Salary should be a positive number."
+    
+    if data['max_monthly_overtime'] < 0:
+        return False, "Max monthly overtime should be a positive number."
+    
+    return True, ""
 
 def submit_form(request):
       if request.method == 'POST':
@@ -205,7 +231,14 @@ def submit_form(request):
          missing_fields = [field for field in required_fields if not data[field]]
 
          if missing_fields:
-            return JsonResponse({"error": "Missing required fields.", "missing_fields": missing_fields}, status=400)
+            messages.error(request, "Missing required fields: {}".format(", ".join(missing_fields)))
+            return redirect(request.path)
+
+        # Validate data types and values
+         is_valid, error_message = validate_data(data)
+         if not is_valid:
+            messages.error(request, error_message)
+            return redirect(request.path)
 
 
         # Convert data to JSON
