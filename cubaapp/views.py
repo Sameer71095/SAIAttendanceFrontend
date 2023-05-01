@@ -259,7 +259,7 @@ def submit_form(request):
             messages.error(request, "Invalid time format. Please enter a valid time in the format 'HH:MM'.")
             return redirect(request.path)
           # Validate required fields
-         required_fields = ['name', 'email', 'contact', 'unique_id', 'salary', 'salary_type', 'department', 'designation', 'starting_date', 'end_date', 'is_overtime', 'is_location_bound', 'location', 'workday_start', 'workday_end', 'max_monthly_overtime']
+         required_fields = ['name', 'email', 'contact', 'unique_id', 'salary', 'salary_type', 'department', 'designation', 'starting_date', 'end_date', 'is_overtime', 'is_location_bound', 'location', 'workday_start', 'workday_end']
          missing_fields = [field for field in required_fields if not data[field]]
 
          if missing_fields:
