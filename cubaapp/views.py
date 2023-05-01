@@ -297,9 +297,9 @@ def submit_form(request):
           
         # Handle GET requests by returning an error message or rendering a form template
         data = {
-            'name': (request.GET.get('Name')),
-            'email': (request.GET.get('Email')),
-            'contact': (request.GET.get('Contact')),
+            'name': (request.POST.get('Name')),
+            'email': (request.POST.get('Email')),
+            'contact': (request.POST.get('Contact')),
             'unique_id': (request.GET.get('UniqueId')),
             'weekend_days': request.GET.getlist('days'),
             'salary': (request.GET.get('salary')),
