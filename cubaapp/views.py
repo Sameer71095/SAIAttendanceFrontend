@@ -56,78 +56,81 @@ def viewEmployee(request):
         return render(request, 'employee-list/employees.html', context)
     else:
         return JsonResponse({"error": "Failed to fetch employees"}, status=400)
-    
+
 
 @login_required
 def addEmployee(request):
-   salary_types = []
-   
-   token = request.session.get('token')
-   
-        
-        # Add the JSON content-type header
-   headers = {
-    'Content-Type': 'application/json',
-     'Authorization': 'bearer ' + token
-     }
-   response = requests.post(base_url + '/salarytype/getsalarytype', headers=headers)
-   if response.ok:
-          
+    salary_types = []
+    
+    token = request.session.get('token')
+    
+    # Add the JSON content-type header
+    headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'bearer ' + token
+    }
+    
+    try:
+        response = requests.post(base_url + '/salarytype/getsalarytype', headers=headers)
+    except ConnectionError:
+        messages.error(request, 'Unable to connect to the server. Please try again later.')
+        return render(request, 'add-employee/addemployee.html', {'breadcrumb': {'parent': 'Employees', 'child': 'Employees'}})
+    
+    if response.ok:
         # Deserialize the response from JSON to a Python object
         response_data = json.loads(response.content)
         
         # Verify the response data
         if response_data['isSuccess']:
-            
             data = response_data['data']
-     # data = response.json().get('data')
             salary_types = [{'id': s['salaryTypeId'], 'name': s['salaryTypeName']} for s in data]
-      
-   departments = []
-   responses = requests.post(base_url + '/department/GetDepartments', headers=headers)
-   if responses.ok:
-      
+    
+    departments = []
+    try:
+        responses = requests.post(base_url + '/department/GetDepartments', headers=headers)
+    except ConnectionError:
+        messages.error(request, 'Unable to connect to the server. Please try again later.')
+        return render(request, 'add-employee/addemployee.html', {'breadcrumb': {'parent': 'Employees', 'child': 'Employees'}})
+    
+    if responses.ok:
         # Deserialize the response from JSON to a Python object
         response_datas = json.loads(responses.content)
         
         # Verify the response data
         if response_datas['isSuccess']:
-            
             datas = response_datas['data']
-      #datas = responses.json().get('data')
             departments = [{'id': s['departmentId'], 'name': s['departmentName']} for s in datas]
-      
-   locations = []
-   
-   
-   employerId = request.session.get('employerId')
-        # Serialize the login data to JSON
-   request_data = {
-            'EmployerID': employerId
-        }
-   request_data_json = json.dumps(request_data)
-   responsess = requests.post(base_url + '/location/getlocations', headers=headers)
-   if responsess.ok:
-      
+    
+    locations = []
+    
+    employerId = request.session.get('employerId')
+    request_data = {
+        'EmployerID': employerId
+    }
+    request_data_json = json.dumps(request_data)
+    
+    try:
+        responsess = requests.post(base_url + '/location/getlocations', headers=headers)
+    except ConnectionError:
+        messages.error(request, 'Unable to connect to the server. Please try again later.')
+        return render(request, 'add-employee/addemployee.html', {'breadcrumb': {'parent': 'Employees', 'child': 'Employees'}})
+    
+    if responsess.ok:
         # Deserialize the response from JSON to a Python object
         response_datass = json.loads(responsess.content)
         
         # Verify the response data
         if response_datass['isSuccess']:
-            
             datass = response_datass['data']
-    #  datass = responsess.json().get('data')
             locations = [{'id': s['locationId'], 'name': s['name']} for s in datass]
-      
-   context = {
-   'breadcrumb': {'parent': 'Employees', 'child': 'Employees'},
-   'departments': departments ,
-   'salary_types': salary_types,
-   'locations': locations
-   }
-   return render(request, 'add-employee/addemployee.html', context)
-
-
+    
+    context = {
+        'breadcrumb': {'parent': 'Employees', 'child': 'Employees'},
+        'departments': departments,
+        'salary_types': salary_types,
+        'locations': locations
+    }
+    return render(request, 'add-employee/addemployee.html', context)
 
 def login_view(request):
     if request.session.get('user_id'):
