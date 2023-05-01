@@ -289,7 +289,10 @@ def submit_form(request):
             return redirect('index')
       else:
         # Handle GET requests by returning an error message or rendering a form template
-        return HttpResponse("This endpoint only accepts POST requests.", status=405)
+       # return HttpResponse("This endpoint only accepts POST requests.", status=405)
+        error_message='Please verify time and Max monthly overtime';
+        messages.error(request, error_message)
+         return redirect('employee/add_employee')
         # Or render a form template:
         # return render(request, 'path/to/your/form_template.html')
          
