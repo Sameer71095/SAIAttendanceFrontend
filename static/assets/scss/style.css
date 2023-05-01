@@ -4918,7 +4918,7 @@ table.dataTable.display tbody tr.odd > .sorting_1 {
 .theme-form textarea {
   border-color: #efefef; }
   .theme-form textarea::-webkit-input-placeholder {
-    color: #898989;
+    color: #e9f5f9;
     font-size: 14px;
     letter-spacing: 1px;
     font-weight: 100; }
@@ -4962,7 +4962,7 @@ table.dataTable.display tbody tr.odd > .sorting_1 {
   .theme-form input[type=file]::-webkit-input-placeholder,
   .theme-form textarea::-webkit-input-placeholder,
   .theme-form select::-webkit-input-placeholder {
-    color: #898989;
+    color: #e9f5f9;
     font-size: 14px;
     letter-spacing: 1px;
     font-weight: 100; }
@@ -9367,7 +9367,7 @@ p.data-attributes svg {
     background-color: #fafdff;
     border: 1px solid #f4f4f4; }
     .chat-box .people-list .search .form-control::placeholder {
-      color: #59667a; }
+      color: #e9f5f9; }
   .chat-box .people-list .search i {
     position: absolute;
     right: 10px;
@@ -13954,7 +13954,7 @@ footer.blockquote-footer {
     margin-top: 10px;
     position: relative; }
     .knowledgebase-search .form-inline ::placeholder {
-      color: #cccccc; }
+      color: #e9f5f9; }
     .knowledgebase-search .form-inline svg {
       position: absolute;
       left: 20px;
@@ -14286,7 +14286,7 @@ footer.blockquote-footer {
     color: #898989;
     line-height: 3; }
   .file-content .form-inline input::-webkit-input-placeholder {
-    color: #898989; }
+    color: #e9f5f9; }
   .file-content .form-inline input:focus {
     outline: none !important; }
 
@@ -17400,7 +17400,7 @@ ul.dot-group {
       background-color: #f3f3ff;
       transition: all 0.3s ease; }
       .login-card .login-main .theme-form input::-webkit-input-placeholder {
-        color: #999999; }
+        color: #e9f5f9; }
       .login-card .login-main .theme-form input:hover, .login-card .login-main .theme-form input:focus {
         border: 1px solid #b9c1cc;
         box-shadow: none !important;
@@ -18113,7 +18113,7 @@ ul.dot-group {
     .timeline-content .comments-box .input-group .input-txt-bx {
       border: none; }
       .timeline-content .comments-box .input-group .input-txt-bx::placeholder {
-        color: #999999; }
+        color: #e9f5f9; }
     .timeline-content .comments-box .input-group .input-group-append .btn i {
       font-size: 20px;
       display: flex;
@@ -21084,7 +21084,7 @@ body.dark-only {
     body.dark-only .theme-form .form-group input[type=url]::-webkit-input-placeholder,
     body.dark-only .theme-form .form-group input[type=file]::-webkit-input-placeholder,
     body.dark-only .theme-form .form-group select::-webkit-input-placeholder {
-      color: #98a6ad; }
+      color: #e9f5f9; }
   body.dark-only .theme-form .form-group .form-control {
     background-color: #1d1e26;
     color: rgba(255, 255, 255, 0.6); }
@@ -22577,7 +22577,7 @@ button[data-toggle="dropdown"]:hover ~ .dropdown-menu {
   border-radius: 10px 0 0 10px;
   flex: 1 1 auto; }
   .search-page .theme-form input::placeholder {
-    color: #7366FF; }
+    color: #e9f5f9; }
   .search-page .theme-form input:focus {
     outline: none; }
 
