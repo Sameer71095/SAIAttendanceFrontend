@@ -270,7 +270,7 @@ def submit_form(request):
          is_valid, error_message = validate_data(data)
          if not is_valid:
             messages.error(request, error_message)
-            return render(request, 'add-employee/addemployee.html', {'data': data})  # Pass the data back to the template
+            return redirect(request.path)
 
 
 
