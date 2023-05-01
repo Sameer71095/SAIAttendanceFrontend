@@ -244,9 +244,14 @@ def submit_form(request):
             'location': int(request.POST.get('location')),
             # 'workday_start': datetime.datetime.strptime(request.POST.get('workdayStart'), '%H:%M').time().strftime('%H:%M:%S'),
             # 'workday_end': datetime.datetime.strptime(request.POST.get('workdayEnd'), '%H:%M').time().strftime('%H:%M:%S'),
-            'max_monthly_overtime': int(request.POST.get('maxMonthlyOvertime')),
+            # 'max_monthly_overtime': int(request.POST.get('maxMonthlyOvertime')),
             'description': str(request.POST.get('Description'))
          }
+         max_monthly_overtime = request.POST.get('maxMonthlyOvertime')
+         if max_monthly_overtime:
+            data['max_monthly_overtime'] = int(max_monthly_overtime)
+         else:
+            data['max_monthly_overtime'] = 0  # or some other default value
          try:
             data['workday_start'] = datetime.datetime.strptime(request.POST.get('workdayStart'), '%H:%M').time().strftime('%H:%M:%S')
             data['workday_end'] = datetime.datetime.strptime(request.POST.get('workdayEnd'), '%H:%M').time().strftime('%H:%M:%S')
