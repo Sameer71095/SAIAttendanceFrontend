@@ -265,7 +265,7 @@ def submit_form(request):
          is_valid, error_message = validate_data(data)
          if not is_valid:
             messages.error(request, error_message)
-            return render(request, 'employee/add_employee.html', {'data': data})  # Pass the data back to the template
+            return render(request, 'add-employee/addemployee.html', {'data': data})  # Pass the data back to the template
 
 
 
@@ -311,4 +311,4 @@ def submit_form(request):
             'max_monthly_overtime': (request.GET.get('maxMonthlyOvertime')),
             'description': (request.GET.get('Description'))
         }
-        return render(request, 'employee/add_employee.html', {'data': data})         
+        return render(request, 'add-employee/addemployee.html', {'data': data})         
