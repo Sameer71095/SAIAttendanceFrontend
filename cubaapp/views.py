@@ -195,7 +195,10 @@ def logout_view(request):
          context = {"breadcrumb": {"parent": "Dashboard", "child": "Login"}}
          return redirect('indexlogin')
       
-      
+def validate_time_12hr(time_string):
+    time_pattern = re.compile(r'^(0?[1-9]|1[0-2]):[0-5][0-9]\s{0,1}(?:AM|PM|am|pm)$')
+    return bool(time_pattern.match(time_string))
+
 
 def validate_data(data):
     try:
@@ -211,7 +214,13 @@ def validate_data(data):
     
     if data['max_monthly_overtime'] < 0:
         return False, "Max monthly overtime should be a positive number."
-    
+
+    if not validate_time_12hr(data['workdayStart']):
+        return False, "Workday start time should be in 12-hour format (hh:mm AM/PM)."
+
+    if not validate_time_12hr(data['workdayEnd']):
+        return False, "Workday end time should be in 12-hour format (hh:mm AM/PM)."
+
     return True, ""
 
 def submit_form(request):
