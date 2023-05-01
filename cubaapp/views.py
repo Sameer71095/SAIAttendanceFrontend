@@ -232,11 +232,17 @@ def submit_form(request):
             'is_overtime': bool(request.POST.get('isOvertime')),
             'is_location_bound': bool(request.POST.get('isLocationBound')),
             'location': int(request.POST.get('location')),
-            'workday_start': datetime.datetime.strptime(request.POST.get('workdayStart'), '%H:%M').time().strftime('%H:%M:%S'),
-            'workday_end': datetime.datetime.strptime(request.POST.get('workdayEnd'), '%H:%M').time().strftime('%H:%M:%S'),
+            # 'workday_start': datetime.datetime.strptime(request.POST.get('workdayStart'), '%H:%M').time().strftime('%H:%M:%S'),
+            # 'workday_end': datetime.datetime.strptime(request.POST.get('workdayEnd'), '%H:%M').time().strftime('%H:%M:%S'),
             'max_monthly_overtime': int(request.POST.get('maxMonthlyOvertime')),
             'description': str(request.POST.get('Description'))
          }
+         try:
+            data['workday_start'] = datetime.datetime.strptime(request.POST.get('workdayStart'), '%H:%M').time().strftime('%H:%M:%S')
+            data['workday_end'] = datetime.datetime.strptime(request.POST.get('workdayEnd'), '%H:%M').time().strftime('%H:%M:%S')
+         except ValueError:
+            messages.error(request, "Invalid time format. Please enter a valid time in the format 'HH:MM'.")
+            return redirect(request.path)
           # Validate required fields
          required_fields = ['name', 'email', 'contact', 'unique_id', 'salary', 'salary_type', 'department', 'designation', 'starting_date', 'end_date', 'is_overtime', 'is_location_bound', 'location', 'workday_start', 'workday_end', 'max_monthly_overtime']
          missing_fields = [field for field in required_fields if not data[field]]
