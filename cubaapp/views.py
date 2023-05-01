@@ -38,7 +38,14 @@ def viewEmployee(request):
     }
    
     employerId = request.session.get('employerId')
-    response = requests.post(base_url + '/Employee/GetAllEmployees?employerId=' + str(employerId), headers=headers)
+    
+    try:
+        response = requests.post(base_url + '/Employee/GetAllEmployees?employerId=' + str(employerId), headers=headers)
+    except ConnectionError:
+        messages.error(request, 'Unable to connect to the server. Please try again later.')
+        context = {"breadcrumb": {"parent": "Employees", "child": "Employees"}}
+        return render(request, 'employee-list/employees.html', context)
+
     response_data = json.loads(response.text)
 
     if response_data['isSuccess']:
@@ -49,7 +56,7 @@ def viewEmployee(request):
         return render(request, 'employee-list/employees.html', context)
     else:
         return JsonResponse({"error": "Failed to fetch employees"}, status=400)
-
+    
 
 @login_required
 def addEmployee(request):
