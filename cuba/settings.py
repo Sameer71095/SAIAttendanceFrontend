@@ -131,7 +131,7 @@ STATIC_URL = 'cubaapp/static/'
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'cuba/cubaapp/static/assets'),   
+    os.path.join(BASE_DIR, 'cubaapp/static/assets'),
 ]
 
 SASS_PROCESSOR_ROOT = BASE_DIR / 'static'
