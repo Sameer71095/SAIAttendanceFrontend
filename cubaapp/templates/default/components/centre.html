@@ -1,4 +1,10 @@
 {% load static %} {% load sass_tags %}
+<style>
+  .scrollable-table {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+</style>
 <div class="col-xxl-8 col-lg-12 box-col-12">
   <div class="card">
     <div class="card-header card-no-border"> 
@@ -172,7 +178,7 @@
     <div class="card">
       <div class="card-header card-no-border">
         <div class="header-top">
-          <h5 class="m-0">Absent Today</h5>
+          <h5 class="m-0">Absent</h5>
           <div class="card-header-right-icon">
             <div class="dropdown">
               <button class="btn dropdown-toggle" id="recentButton" type="button" data-bs-toggle="dropdown" aria-expanded="false">Today</button>
