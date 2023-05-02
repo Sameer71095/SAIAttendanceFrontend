@@ -9,7 +9,7 @@ $(".mobile-back").click(function () {
 $(".page-wrapper").attr("class", "page-wrapper " + localStorage.getItem('page-wrapper'));
 
 if (localStorage.getItem("page-wrapper") === null) {
-  $(".page-wrapper").addClass("compact-wrapper");
+  $(".page-wrapper").addClass("horizontal-wrapper enterprice-type advance-layout");
 } // left sidebar and vertical menu
 
 
