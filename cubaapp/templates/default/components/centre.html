@@ -152,12 +152,13 @@
               <span class="date-content light-background">{{ employee.jobTitle }}</span>
               <span>IN - {{ employee.checkInTime }}</span>
             </p>
-            
+           
             <h6>{{ employee.name }}<span class="dot-notification"></span></h6>
-            <p class="f-light">{{ employee.email }}</p>
-            <p class="d-flex justify-content-end mb-2">
-              OUT - {{ employee.checkOutTime }}
+            <p class="d-flex justify-content-between mb-2">
+              <span class="f-light">{{ employee.email }}</span>
+              <span> OUT - {{ employee.checkOutTime }}</span>
             </p>
+            
           </div>
         </li>
         {% endfor %}
