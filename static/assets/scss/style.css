@@ -12968,7 +12968,7 @@ span.twitter-typeahead .tt-suggestion {
   overflow-y: auto; }
   
 .scrollable-table{
-  max-height: 300px;
+  max-height: 20px;
   overflow-y: auto; }
 
 .chart-right {
