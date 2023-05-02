@@ -25,11 +25,28 @@ def indexPage(request):
    context={"breadcrumb":{"parent":"Dashboard","child":"Stater-kit"}}
    return render(request,'general/index.html',context)
 
+
 @login_required
 def index(request):
-   context={"breadcrumb":{"parent":"Dashboard","child":"Dashboard"}}
-   return render(request,'default/index2.html',context)
+    
+    token = request.session.get('token')
+    url = base_url + 'Attendance/GetDetailedAttendanceSummaryToday?employerId=2'
+    headers = {
+        'Authorization': 'bearer ' + token,
+        "Content-Type": "application/json",
+    }
 
+    response = requests.post(url, headers=headers)
+    if response.status_code == 200:
+        data = response.json()
+    else:
+        data = {}
+
+    context = {
+        "breadcrumb": {"parent": "Dashboard", "child": "Dashboard"},
+        "data": data,
+    }
+    return render(request, "default/index2.html", context)
 
 @login_required
 def viewEmployee(request):       
