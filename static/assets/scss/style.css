@@ -12966,6 +12966,10 @@ span.twitter-typeahead .tt-suggestion {
 #scrollable-dropdown-menu .twitter-typeahead .tt-menu .tt-dataset {
   max-height: 100px;
   overflow-y: auto; }
+  
+.scrollable-table{
+  max-height: 300px;
+  overflow-y: auto; }
 
 .chart-right {
   position: relative; }
