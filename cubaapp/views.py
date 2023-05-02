@@ -30,7 +30,7 @@ def indexPage(request):
 def index(request):
     
     token = request.session.get('token')
-    url = base_url + 'Attendance/GetDetailedAttendanceSummaryToday?employerId=2'
+    url = base_url + '/Attendance/GetDetailedAttendanceSummaryToday?employerId=2'
     headers = {
         'Authorization': 'bearer ' + token,
         "Content-Type": "application/json",
