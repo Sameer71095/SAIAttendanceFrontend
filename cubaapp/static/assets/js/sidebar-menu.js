@@ -6,7 +6,7 @@ $(".mobile-back").click(function () {
 });
 $(".page-wrapper").attr("class", "page-wrapper " + localStorage.getItem('page-wrapper'));
 if (localStorage.getItem("page-wrapper") === null) {
-    $(".page-wrapper").addClass("horizontal-wrapper enterprice-type advance-layout");
+    $(".page-wrapper").addClass("compact-wrapper");
 }
 
 // left sidebar and vertical menu
