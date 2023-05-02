@@ -154,7 +154,9 @@
                   </p>
                   <div class="d-flex justify-content-between align-items-center mb-2">
                       <h6 class="mb-0">{{ employee.name }}<span class="dot-notification"></span></h6>
+                      {% if employee.checkOutTime %}
                       <span>OUT - {{ employee.checkOutTime }}</span>
+                      {% endif %}
                   </div>
                   <p class="f-light">{{ employee.email }}</p>
               </div>
