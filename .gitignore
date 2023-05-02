@@ -1,0 +1,54 @@
+# .gitignore for Django project
+
+# Python files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyc
+
+# Virtual environment
+venv/
+*.virtualenv
+myenv/
+.env
+
+# Django generated files
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+*.db
+*.bak
+
+# Django media files
+#media/
+#uploads/
+
+# Django static files
+#collected_static/
+
+# Cache
+#*.cache
+#*.egg-info/
+#dist/
+#build/
+#*.eggs
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# IDE files
+.idea/
+.vscode/
+
+# End of .gitignore
