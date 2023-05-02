@@ -1,5 +1,11 @@
 {% load static %} {% load sass_tags %}
-
+<style>
+  .scrollable-table {
+    max-height: 20px;
+    overflow-y: auto;
+    min-height: auto;
+  }
+</style>
 <div class="col-xxl-8 col-lg-12 box-col-12">
   <div class="card">
     <div class="card-header card-no-border"> 
@@ -170,7 +176,7 @@
 
 <div class="col-xxl-4 col-md-6 appointment-sec box-col-6">
   <div class="appointment">
-    <div class="card">
+    <div class="card  height-equal">
       <div class="card-header card-no-border">
         <div class="header-top">
           <h5 class="m-0">Absent</h5>
