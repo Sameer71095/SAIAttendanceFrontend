@@ -152,6 +152,9 @@
               <span class="date-content light-background">{{ employee.jobTitle }}</span>
               <span>IN - {{ employee.checkInTime }}</span>
             </p>
+            <p class="d-flex justify-content-end mb-2">
+              OUT - {{ employee.checkOutTime }}
+            </p>
             <h6>{{ employee.name }}<span class="dot-notification"></span></h6>
             <p class="f-light">{{ employee.email }}</p>
           </div>
@@ -161,6 +164,7 @@
     </div>
   </div>
 </div>
+
 
 <div class="col-xxl-4 col-md-6 appointment-sec box-col-6">
   <div class="appointment">
